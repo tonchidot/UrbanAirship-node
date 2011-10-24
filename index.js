@@ -66,7 +66,7 @@ UrbanAirship.prototype.register = function (params) {
     var req = that._client.request(
         that._requestOptions({
           method : 'PUT',
-          headers : { 'content-length' : body.length }
+          headers : { 'content-length' : Buffer.byteLength(body) }
         }),
         function (res) {
           if (res.statusCode < 200 || res.statusCode >= 300) {
@@ -198,9 +198,10 @@ UrbanAirship.prototype.push = function (params) {
         that._requestOptions({
           method : 'POST',
           path : '/api/push/',
-          headers : { 'content-length' : body.length }
+          headers : { 'content-length' : Buffer.byteLength(body) }
         }),
         function (res) {
+          res.setEncoding('utf8');
           if (res.statusCode < 200 || res.statusCode >= 300) {
             console.error(res);
           }
@@ -282,7 +283,7 @@ UrbanAirship.prototype.broadcast = function (params) {
       this._requestOptions({
         method : 'POST',
         path : '/api/push/broadcast/',
-        headers : { 'content-length' : body.length }
+        headers : { 'content-length' : Buffer.byteLength(body) }
       }),
       function (res) {
         if (res.statusCode < 200 || res.statusCode >= 300) {
@@ -321,7 +322,7 @@ UrbanAirship.prototype._requestOptions = function (options) {
   o.path = o.path || this._url.pathname;
 
   o.headers = o.headers || {};
-  o.headers['content-type'] = o.headers['content-type'] || 'application/json';
+  o.headers['content-type'] = o.headers['content-type'] || 'application/json; charset=utf-8';
   o.headers['content-length'] = o.headers['content-length'] || 0;
   o.headers['authorization'] = o.headers['authorization'] ||
     'Basic ' + base64.encode(
