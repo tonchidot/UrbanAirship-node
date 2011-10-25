@@ -179,7 +179,7 @@ UrbanAirship.prototype.push = function (params) {
 
   var aps = {
     sound : p.sound || 'default',
-    badge : p.badge || 'auto',
+    badge : p.badge || 0,
     alert : p.alert || ''
   };
   var android = {
