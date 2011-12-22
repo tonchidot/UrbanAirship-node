@@ -203,7 +203,7 @@ UrbanAirship.prototype.push = function (params) {
         function (res) {
           res.setEncoding('utf8');
           if (res.statusCode < 200 || res.statusCode >= 300) {
-            console.error(res);
+            console.error(res.statusCode);
           }
         }
         );
