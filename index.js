@@ -178,7 +178,7 @@ UrbanAirship.prototype.push = function (params) {
     throw new Error('arguments[0] is invalid.');
 
   var aps = {
-    sound : p.sound || 'default',
+    sound : p.sound || null,
     badge : p.badge || 0,
     alert : p.alert || ''
   };
@@ -186,6 +186,8 @@ UrbanAirship.prototype.push = function (params) {
     extra : p.extra || {},
     alert : p.alert || ''
   };
+
+  if(!aps.sound) { delete aps.sound; }
 
   delete p.alert;
   delete p.sound;
